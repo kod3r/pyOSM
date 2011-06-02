@@ -1,0 +1,11 @@
+pyOSM
+python library to works with OpenStreetMap data
+
+Demo at :
+<http://www.leretourdelautruche.com/map/>
+
+Code licence : New BSD
+
+Technologies
+------------
+Python 2.5
