@@ -21,7 +21,7 @@ import ftplib			# used to connect to ftp and push the new data file
 import webbrowser
 from xml.etree import ElementTree
 
-__version__="0.2"
+__version__="0.3"
 _debug_=True
 		
 def is_in(list,id):
@@ -282,28 +282,28 @@ class Area():
 					
 		return inside
 	
-def FtpUpload(host,user,password,directory,filename):
+def FtpUpload(host,user,password,dest_dir,src_dir,filename):
 	print "Uploading to FTP",filename
 	try:
-		file=open(filename,"r")
+		file=open("%s%s" % (src_dir,filename),"r")
 		try:	
 			ftp=ftplib.FTP(host)
 			ftp.login(user,password)
 			ftp.set_pasv(True)
-			ftp.storlines("STOR %s/%s" % (directory,filename),file)
+			ftp.storlines("STOR %s/%s" % (dest_dir,filename),file)
 			file.close()
 			ftp.quit()
 		except ftplib.all_errors:
 			print "FTP errorcmd :"
 			print "\thost:",host
 			print "\tuser:",user,password
-			print "\tdirectory:",directory
+			print "\tdirectory:",dest_dir
 			print "\tfilename:",filename
 			print sys.exc_info()
 		except:
 			print "error during ftp :",sys.exc_info()
 	except:
-		print "error reading local file %s :" % filename,sys.exc_info()
+		print "error reading local file %s at %s :" % (filename,src_dir),sys.exc_info()
 
 if __name__ == '__main__' :
     print "pyOSM module",__version__
